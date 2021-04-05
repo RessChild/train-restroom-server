@@ -3,11 +3,13 @@
 - NodeJS / EC2 / S3 / MongoDB
 
 # npm 설치파일
-- mongoose
-- axios
-- aws-sdk
 - express
+- axios
+- dotenv
+- mongoose
+- aws-sdk
 - nodemon
+- pm2
 
 # 진행사항
 1. 2021/04/05
