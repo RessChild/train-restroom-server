@@ -7,14 +7,14 @@ const app = express();
 // 환경 변수
 const PORT = process.env.SERVER_PORT;
 
-
-const { s3Upload, s3GetObject } = require('./storage/s3');
-
 // 테스트
+const { s3Upload, s3GetObject } = require('./storage/s3');
+const { getStationToilet } = require('./api/openApi');
 app.get('/', async (req, res) => {
     // 테스트용
-    await s3Upload('abc');
-    await s3GetObject('abc');
+    // await s3Upload('abc');
+    // await s3GetObject('abc');
+    getStationToilet(322);
     console.log("success to get '/'");
     return res.status(200).send("success to get '/'");
 });
