@@ -25,5 +25,8 @@
     "mongoose": "^5.12.3",
     "nodemon": "^2.0.7",
     "pm2": "^4.5.6"
+  },
+  "devDependencies": {
+    "node-xlsx": "^0.16.1"
   }
 }
