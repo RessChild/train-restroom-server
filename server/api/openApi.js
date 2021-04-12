@@ -9,9 +9,9 @@ const getStationCode = () => {
 };
 
 // 역별 화장실 정보
-const getStationToilet = async (STATION_CODE) => {
+const getStationToilet = async (RAIL_OPERATION_CODE, LINE_CODE, STATION_CODE) => {
     // Restful Api
-    const url = `http://openapi.kric.go.kr/openapi/convenientInfo/stationToilet?serviceKey=${SERVICE_KEY}&format=${FORMAT}&railOprIsttCd=${'S1'}&lnCd=${3}&stinCd=${STATION_CODE}`;
+    const url = `http://openapi.kric.go.kr/openapi/convenientInfo/stationToilet?serviceKey=${SERVICE_KEY}&format=${FORMAT}&railOprIsttCd=${RAIL_OPERATION_CODE}&lnCd=${LINE_CODE}&stinCd=${STATION_CODE}`;
     ''
     try { // async-await 를 사용하므로, 에러처리
         const { data: { header, body } } = await axios.get(url);

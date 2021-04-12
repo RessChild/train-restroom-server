@@ -29,6 +29,9 @@
   - node-xlsx 모듈로 xlsx 파일을 읽어서 db에 저장
     ( https://data.kric.go.kr/rips/M_04_02/detail.do?id=2 에서 xlsx 파일 다운로드 가능 )
     이를 기반으로 open api를 사용할 수 있도록 마무리할 것
+4. 2021/04/12
+  - open api 연동 완료
+  - restful api 형태로 구축 완료
 
 # 참고자료
 - https://ryanwoo.tistory.com/6
