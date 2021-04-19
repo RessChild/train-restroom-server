@@ -3,8 +3,8 @@ const fs = require('fs');
 const xlsx = require('node-xlsx');
 
 // MONGO_DB
-const mongo = require('./mongo');
-const trainSchema = require('./schema/trainSchema');
+const mongo = require('../mongo');
+const trainSchema = require('../schema/trainSchema');
 
 // xlsx 파일
 const path = './xlsx.xlsx'

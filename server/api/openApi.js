@@ -12,15 +12,15 @@ const getStationCode = () => {
 const getStationToilet = async (RAIL_OPERATION_CODE, LINE_CODE, STATION_CODE) => {
     // Restful Api
     const url = `http://openapi.kric.go.kr/openapi/convenientInfo/stationToilet?serviceKey=${SERVICE_KEY}&format=${FORMAT}&railOprIsttCd=${RAIL_OPERATION_CODE}&lnCd=${LINE_CODE}&stinCd=${STATION_CODE}`;
-    ''
+    
     try { // async-await 를 사용하므로, 에러처리
         const { data: { header, body } } = await axios.get(url);
 
         if( header.resultCode !== "00" ) { // 서비스키 필터링
-            console.log(header.resultMsg);
+            // console.log(header.resultMsg);
             return header.resultMsg;
         }
-        console.log(body);
+        // console.log(body);
         return body;
     } catch (e) {
         console.log("getStationToilet error:", e);
