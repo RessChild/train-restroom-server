@@ -65,21 +65,22 @@ const apiUpload = async () => {
             });
 
             // 트랜젝션 시작
-            const session = await mongoose.startSession();
+            // const session = await mongoose.startSession();
             try {
-                session.startTransaction();
+                // session.startTransaction();
 
                 // 전체 화장실 정보
                 await restroomSchema.create(
                     totals.map(restroom => ({ ...restroom, station: _id })),
-                    { session: session });
+                    // { session: session }
+                    );
 
-                await session.commitTransaction(); // 성공 시
+                // await session.commitTransaction(); // 성공 시
             } catch (e) {
                 console.log("commit error!", e, totals);
-                await session.abortTransaction(); // 실패 시
+                // await session.abortTransaction(); // 실패 시
             } finally {
-                session.endSession(); // 끝내기
+                // await session.endSession(); // 끝내기
             }
         }
     });

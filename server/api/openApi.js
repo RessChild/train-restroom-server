@@ -23,7 +23,7 @@ const getStationToilet = async (RAIL_OPERATION_CODE, LINE_CODE, STATION_CODE) =>
         // console.log(body);
         return body;
     } catch (e) {
-        console.log("getStationToilet error:", e);
+        console.log("getStationToilet error:", RAIL_OPERATION_CODE, STATION_CODE);
         return e;
     }
 };
