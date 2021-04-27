@@ -31,6 +31,9 @@ const connectServer = async () => {
     // const textRouter = require('./routers/testRouter');
     // app.use('/test', textRouter);
 
+    // req.body 사용
+    app.use(express.json());
+
     // 기초 데이터 관련
     const dataRouter = require('./routers/dataRoute');
     app.use('/data', dataRouter);
