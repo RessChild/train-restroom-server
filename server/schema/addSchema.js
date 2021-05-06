@@ -5,6 +5,6 @@ const addSchema = Schema({
     stinNm: String,
     exitNo: String,
     gateInotDvNm: String,
-});
+}, { timestamps: true });
 
 module.exports = model('adds', addSchema)

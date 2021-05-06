@@ -42,6 +42,10 @@ const connectServer = async () => {
     const actionRouter = require('./routers/actionRouter');
     app.use('/action', actionRouter);
 
+    // 백오피스
+    const backOfficeRouter = require('./routers/backOfficeRouter');
+    app.use('/back-office', backOfficeRouter);
+
     // 실행
     app.listen(PORT, () => {
         console.log(`listening on ${PORT}`);
