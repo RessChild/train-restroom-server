@@ -14,6 +14,8 @@
 - nodemon
 - mongoose
 - pm2
+- moment
+- moment-timezone
 
 # 진행사항
 1. 2021/04/05
@@ -50,6 +52,15 @@
   - 백오피스용 api 라우터 생성
   - 서버랑, 백오피스의 npm 폴더를 분리하는게 좋을까?
     ec2에서 해당 모듈을 함께 공유할텐데.. 그냥 깃폴더를 따로짜는게 나을것 같기도 하고..
+9. 2021/05/04
+  - mongoDB의 타임스탬프 시점을 한국 표준시 KST로 맞출 예정.
+    moment-timezone 을 사용해서 처리함
+  - schema 에 default 를 쓰면 자동처리된단 장점이 있긴한데,
+    값이 없는 것도 기본값으로 채워서 반환해주는게 문제.
+  - 해당 요청에 대한 처리여부는 단순히 bool값을 사용하는가?
+    아니면 처리한 시간값을 기록하는 형태를 사용?
+    ==> 일단 검색 필터링이 되게끔 수정
+  - isClear는 default 값이 잘 들어가는데, isRead가 안들어감. 수정 필요
 
 # 해야할 부분
 - lnCd 도 함께 검색키로 받아오도록 수정 OK
@@ -62,6 +73,7 @@
       추가: 역 이름 / 근처 출구 / 안,밖
 - 데이터 확인과정 필요할 듯
 - 백오피스 request 에 대해선 jwt 확인 절차가 필요함
+- 비밀번호 sha256 으로 해싱해서 jwt 토큰 발급해야함
 
 # 참고자료
 - https://ryanwoo.tistory.com/6
@@ -69,3 +81,4 @@
 - http://www.gisdeveloper.co.kr/?p=8987
 - https://www.mongodb.com/blog/post/quick-start-nodejs--mongodb--how-to-implement-transactions
 - https://velog.io/@moongq/mongoose-transaction
+- https://flymogi.tistory.com/30

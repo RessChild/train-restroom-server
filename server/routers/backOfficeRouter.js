@@ -9,9 +9,12 @@ const reportSchema = require('../schema/reportSchema');
 router.post('/add-list', async (req, res) => {
     console.log('router add-list');
 
+    // 검색 필터링
+    const { isRead, isClear } = req.body;
+
     try {
-        const add_list = await addSchema.find({});
-        return res.send(add_list);    
+        const add_list = await addSchema.find({ isRead, isClear }).sort({ "createdAt": -1 });
+        return res.send(add_list);
     } catch (e) {
         return res.status(500).end();
     }
@@ -21,8 +24,11 @@ router.post('/add-list', async (req, res) => {
 router.post('/report-list', async (req, res) => {
     console.log('router report-list');
 
+    // 검색 필터링
+    const { isRead, isClear } = req.body;
+
     try {
-        const report_list = await reportSchema.find({});
+        const report_list = await reportSchema.find({ isRead, isClear }).sort({ 'createdAt': -1 });
         return res.send(report_list);    
     } catch (e) {
         return res.status(500).end();
