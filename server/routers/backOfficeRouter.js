@@ -11,9 +11,14 @@ router.post('/add-list', async (req, res) => {
 
     // 검색 필터링
     const { isRead, isClear } = req.body;
+    // console.log(isRead, isClear);
+    let query = {}
+    if( !isRead ) query = { ...query, isRead };
+    if( !isClear ) query = { ...query, isClear };
 
     try {
-        const add_list = await addSchema.find({ isRead, isClear }).sort({ "createdAt": -1 });
+        const add_list = await addSchema.find({ ...query }).sort({ "createdAt": -1 });
+        // console.log(add_list);
         return res.send(add_list);
     } catch (e) {
         return res.status(500).end();
@@ -26,9 +31,13 @@ router.post('/report-list', async (req, res) => {
 
     // 검색 필터링
     const { isRead, isClear } = req.body;
+    // console.log(isRead, isClear);
+    let query = {}
+    if( !isRead ) query = { ...query, isRead };
+    if( !isClear ) query = { ...query, isClear };
 
     try {
-        const report_list = await reportSchema.find({ isRead, isClear }).sort({ 'createdAt': -1 });
+        const report_list = await reportSchema.find({ ...query }).sort({ 'createdAt': -1 });
         return res.send(report_list);    
     } catch (e) {
         return res.status(500).end();

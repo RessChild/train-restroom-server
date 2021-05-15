@@ -9,7 +9,7 @@ const addSchema = Schema({
     exitNo: String,
     gateInotDvNm: String,
     createdAt: { type: String, default: getCurrentDate },
-    isRead: { tpye: Boolean, default: false }, // 읽었는가?
+    isRead: { type: Boolean, default: false }, // 읽었는가?
     isClear: { type: Boolean, default: false }, // 처리했는가?
 });
 
