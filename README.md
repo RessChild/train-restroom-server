@@ -64,6 +64,10 @@
 10. 2021/05/14
   - 필터링 기능까지 넣었는데, DB 컬럼이 갱신이 안되서 문제가 생기는 듯
     ==> 오탈자 문제였음
+11. 2021/05/17
+  - back-office 필터에 '페이지' 옵션 추가 ( 페이지 당, 15개의 정보 반환 )
+  - 전체 페이지 수를 계산하여 함꼐 반환하도록 수정
+  - 스키마 개선 ( isRaed, isClear ==> isRead 로 통합 )
 
 # 해야할 부분
 - lnCd 도 함께 검색키로 받아오도록 수정 OK
@@ -77,6 +81,13 @@
 - 데이터 확인과정 필요할 듯
 - 백오피스 request 에 대해선 jwt 확인 절차가 필요함
 - 비밀번호 sha256 으로 해싱해서 jwt 토큰 발급해야함
+- isRead 또한 sort 기준으로 잡을 것인가??
+
+# 구현 TMI
+- mongoDB 는 lean() 을 사용해야 빠른 탐색이 가능
+  but, mongoose 는 이를 기본적으로 적용한 상태 ( 신경쓰지 않아도 됨 )
+- mongoose.Query 중, count() 는 더 이상 추천하지 않음
+  대신, countDocumnet() 라는 함수를 사용하길 권유
 
 # 참고자료
 - https://ryanwoo.tistory.com/6
@@ -85,3 +96,4 @@
 - https://www.mongodb.com/blog/post/quick-start-nodejs--mongodb--how-to-implement-transactions
 - https://velog.io/@moongq/mongoose-transaction
 - https://flymogi.tistory.com/30
+- https://mongoosejs.com/docs/api/query.html

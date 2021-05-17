@@ -9,8 +9,7 @@ const reportSchema = Schema({
     type: Number,
     detail: { type: String, default: '' },
     createdAt: { type: String, default: getCurrentDate },
-    isRead: { type: Boolean, default: false }, // 읽었는가?
-    isClear: { type: Boolean, default: false }, // 처리했는가?
+    isRead: { type: Boolean, default: false }, // 처리했는가?
 });
 
 module.exports = model('reports', reportSchema);
