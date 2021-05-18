@@ -48,13 +48,17 @@ router.post('/add-list', async (req, res) => {
 router.post('/add-read', async (req, res) => {
     console.log('router add-read');
 
+    const { list } = req.body;
+
     try {
-        return res.send({ success: true });
+        const { ok, nModified } = await addSchema
+            .updateMany({ "_id": { "$in": list }}, { "isRead": true });
+        // console.log(result);
+        return res.send({ ok, nModified });
     } catch (e) {
         return res.status(500).end();
     }
 });
-
 
 /* 수정 요청 목록 기능 */
 // 수정 리스트 반환

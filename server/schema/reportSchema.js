@@ -10,6 +10,7 @@ const reportSchema = Schema({
     detail: { type: String, default: '' },
     createdAt: { type: String, default: getCurrentDate },
     isRead: { type: Boolean, default: false }, // 처리했는가?
+    userPhone: { type: String, default: '' }, // 사용자 연락처
 });
 
 module.exports = model('reports', reportSchema);

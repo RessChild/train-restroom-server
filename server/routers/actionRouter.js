@@ -9,12 +9,12 @@ const reportSchema = require('../schema/reportSchema');
 router.post('/add', async (req ,res) => {
     // addSchema 가 쓰일 곳
     console.log('user action-add');
-    const { stinNm, exitNo, gateInotDvNm } = req.body;
+    const { stinNm, exitNo, gateInotDvNm, userPhone } = req.body;
     try {
         console.log(stinNm, exitNo, gateInotDvNm);
 
         await addSchema.create({
-            stinNm, exitNo, gateInotDvNm
+            stinNm, exitNo, gateInotDvNm, userPhone
         });
         return res.send('success add');
     } catch (e) {
@@ -27,12 +27,12 @@ router.post('/add', async (req ,res) => {
 router.post('/report', async (req, res) => {
     // reportSchema 가 쓰일 곳
     console.log('user action-report');
-    const { stinNm, type, detail } = req.body;
+    const { stinNm, type, detail, userPhone } = req.body;
 
     try {
         console.log(stinNm, type, detail);
         await reportSchema.create({
-            stinNm, type, detail 
+            stinNm, type, detail, userPhone
         });
         return res.send('success report');
     } catch (e) {
