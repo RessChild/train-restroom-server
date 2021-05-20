@@ -28,8 +28,8 @@ router.use('/', verityToken);
 router.post('/add-list', async (req, res) => { 
     console.log('router add-list');
 
-    // 검색 필터링
-    const { isRead, page } = req.body;
+    // 토큰 갱신 여부 & 검색 필터링
+    const { new_token, body: { isRead, page }} = req;
 
     // 뛰어넘을 라인 수
     const LINE_SKIP = Math.max(0, page * LINE_LIMIT);
@@ -52,6 +52,7 @@ router.post('/add-list', async (req, res) => {
             .skip(LINE_SKIP)
             .limit(LINE_LIMIT);
         return res.send({
+            new_token,
             addList: add_list,
             totalPage: total_page,
         });
@@ -64,13 +65,14 @@ router.post('/add-list', async (req, res) => {
 router.post('/add-read', async (req, res) => {
     console.log('router add-read');
 
-    const { list } = req.body;
+    // 토큰 갱신 여부, 리스트
+    const { new_token, body: { list }} = req;
 
     try {
         const { ok, nModified } = await addSchema
             .updateMany({ "_id": { "$in": list }}, { "isRead": true });
         // console.log(result);
-        return res.send({ ok, nModified });
+        return res.send({ new_token, ok, nModified });
     } catch (e) {
         return res.status(500).end();
     }
@@ -81,8 +83,8 @@ router.post('/add-read', async (req, res) => {
 router.post('/report-list', async (req, res) => {
     console.log('router report-list');
 
-    // 검색 필터링
-    const { isRead, page } = req.body;
+    // 토큰 갱신 여부 & 검색 필터링
+    const { new_token, body: { isRead, page }} = req;
 
     // 뛰어넘을 라인 수
     const LINE_SKIP = Math.max(0, page * LINE_LIMIT);
@@ -104,7 +106,11 @@ router.post('/report-list', async (req, res) => {
             .sort({ 'createdAt': -1 })
             .skip(LINE_SKIP)
             .limit(LINE_LIMIT);
-        return res.send(report_list);    
+        return res.send({
+            new_token,
+            reportList: report_list,
+            totalPage: total_page,
+        });
     } catch (e) {
         return res.status(500).end();
     }
