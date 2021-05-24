@@ -4,9 +4,14 @@ const router = express.Router();
 // MongoDB 스키마
 const addSchema = require('../schema/addSchema');
 const reportSchema = require('../schema/reportSchema');
+const trainSchema = require('../schema/trainSchema');
+const restroomSchema = require('../schema/restroomSchema');
 
 // JWT 관련
 const { generateToken, verityToken } = require('../utils/tokenFunction');
+
+// 필터링 고정 변수
+const { lnList } = require('../utils/FilterData');
 
 const LINE_LIMIT = 15;
 
@@ -114,6 +119,63 @@ router.post('/report-list', async (req, res) => {
     } catch (e) {
         return res.status(500).end();
     }
+});
+
+
+/* 화장실 데이터 접근 및 수정 페이지 */
+// 모든 노선 정보
+router.post('/edit-train', (req, res) => {
+    console.log('router edit-train');
+
+    const { new_token } = req;
+    return res.send({
+        new_token,
+        lineList: lnList,
+    });
+});
+// 노선별 역 정보
+router.post('/edit-line/:line', async (req, res) => {
+    console.log('router edit-line');
+
+    const { new_token, params: { line }} = req;
+    // console.log(req.params);
+    try {
+        // console.log(new_token, line);
+        const stationList = await trainSchema
+            .find({ lnCd: line })
+            .sort({ stinNm: 1 })
+            .select("stinNm stinCd");
+        // console.log(stationList);
+        return res.send({
+            new_token,
+            stationList,
+        });
+    } catch (e) {
+        console.log("에러 발생");
+        return res.status(401).send(e);
+    }
+});
+// 역별 화장실 정보
+router.post('/edit-station/:line/:station', async (req, res) => {
+    console.log('router edit-station');
+
+    const { new_token, params: { line, station }} = req;
+    try {
+        const restroomList = await restroomSchema
+            .find({ line, station });
+        return res.send({
+            new_token,
+            restroomList
+        })
+    } catch (e) {
+        console.log("에러 발생");
+        return res.status(401).send(e);
+    }
+});
+// 화장실 정보 수정
+router.post('/edit-data/:restroom', async (req, res) => {
+    console.log('router edit-data');
+    return res.send('화장실 정보 수정');
 });
 
 module.exports = router;

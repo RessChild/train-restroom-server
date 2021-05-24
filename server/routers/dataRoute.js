@@ -9,13 +9,7 @@ const restroomSchema = require('../schema/restroomSchema');
 const { getStationToilet } = require('../api/openApi');
 
 // 필터링 고정 변수
-const railOprList = ["IC", "KR", "GM", "AR", "S1", "S5", "S9", "SW", "UI", "UL", "DX"]; // 관리기관 코드명
-const lnCdList = [ // 노선 코드명
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", // 1~9호선
-    "I1", "I2", "K1", "K2", "K4", "K5", // 인천노선, 수인분당선, 경춘선, 경의중앙, 경강선
-    "A1", "U1", "E1", "D1", // 공항철도, 의정부경전철, 용인경전철, 신분당
-    "UI", "WS", "G1", // 우이신설경전철, 서해선, 김포도시철도
-]; 
+const { railOprList, lnCdList } = require('../utils/FilterData');
 
 // 모든 기차역 리스트 출력
 router.get('/train-list', async (req, res) => {
