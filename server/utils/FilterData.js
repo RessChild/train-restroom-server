@@ -9,89 +9,127 @@ const lnCdList = [ // 노선 코드명
 
 const lnList = [
     {
+        railOprIsttCd: "KR",
         lnCd: "1",
-        lnNm: "1호선",
+        lnNm: "1호선 (코레일)",
     },
     {
+        railOprIsttCd: "S1",
+        lnCd: "1",
+        lnNm: "1호선 (구서울메트로)",
+    },
+    {
+        railOprIsttCd: "S1",
         lnCd: "2",
         lnNm: "2호선",
     },
     {
+        railOprIsttCd: "KR",
         lnCd: "3",
-        lnNm: "3호선",
+        lnNm: "3호선 (코레일)",
     },
     {
+        railOprIsttCd: "S1",
+        lnCd: "3",
+        lnNm: "3호선 (구서울메트로)",
+    },
+    {
+        railOprIsttCd: "KR",
         lnCd: "4",
-        lnNm: "4호선",
+        lnNm: "4호선 (코레일)",
     },
     {
+        railOprIsttCd: "S1",
+        lnCd: "4",
+        lnNm: "4호선 (구서울메트로)",
+    },
+    {
+        railOprIsttCd: "S5",
         lnCd: "5",
         lnNm: "5호선",
     },
     {
+        railOprIsttCd: "S5",
         lnCd: "6",
         lnNm: "6호선",
     },
     {
+        railOprIsttCd: "S5",
         lnCd: "7",
         lnNm: "7호선",
     },
     {
+        railOprIsttCd: "S5",
         lnCd: "8",
         lnNm: "8호선",
     },
     {
+        railOprIsttCd: "S9",
         lnCd: "9",
         lnNm: "9호선",
     },
     {
+        railOprIsttCd: "IC",
         lnCd: "I1",
         lnNm: "인천1호선",        
     },
     {
+        railOprIsttCd: "IC",
         lnCd: "I2",
         lnNm: "인천2호선",        
     },
     {
+        railOprIsttCd: "KR",
         lnCd: "K1",
         lnNm: "수인분당선",        
     },
     {
+        railOprIsttCd: "KR",
         lnCd: "K2",
         lnNm: "경춘선",        
     },
     {
+        railOprIsttCd: "KR",
         lnCd: "K4",
-        lnNm: "경의중앙",        
+        lnNm: "경의중앙선",        
     },
     {
+        railOprIsttCd: "KR",
         lnCd: "K5",
         lnNm: "경강선",        
     },
     {
+        railOprIsttCd: "AR",
         lnCd: "A1",
-        lnNm: "공항철도",        
-    },
-        {
-        lnCd: "U1",
-        lnNm: "의정부경전철",        
-    },    {
-        lnCd: "E1",
-        lnNm: "용인경전철",        
+        lnNm: "공항철도",
     },
     {
+        railOprIsttCd: "UL",
+        lnCd: "U1",
+        lnNm: "의정부경전철",        
+    },
+    {
+        railOprIsttCd: "EV",
+        lnCd: "E1",
+        lnNm: "용인에버라인", // 용인경전철        
+    },
+    {
+        railOprIsttCd: "DX",
         lnCd: "D1",
         lnNm: "신분당",        
     },
     {
+        railOprIsttCd: "UI",
         lnCd: "UI",
         lnNm: "우이신설경전철",        
     },
     {
+        railOprIsttCd: "SW",
         lnCd: "WS",
         lnNm: "서해선",        
     },
     {
+        railOprIsttCd: "GM",
         lnCd: "G1",
         lnNm: "김포도시철도",        
     }

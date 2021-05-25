@@ -134,15 +134,15 @@ router.post('/edit-train', (req, res) => {
     });
 });
 // 노선별 역 정보
-router.post('/edit-line/:line', async (req, res) => {
+router.post('/edit-line/:operation/:line', async (req, res) => {
     console.log('router edit-line');
 
-    const { new_token, params: { line }} = req;
+    const { new_token, params: { operation, line }} = req;
     // console.log(req.params);
     try {
         // console.log(new_token, line);
         const stationList = await trainSchema
-            .find({ lnCd: line })
+            .find({ railOprIsttCd: operation, lnCd: line })
             .sort({ stinNm: 1 })
             .select("stinNm stinCd");
         // console.log(stationList);
@@ -156,13 +156,21 @@ router.post('/edit-line/:line', async (req, res) => {
     }
 });
 // 역별 화장실 정보
-router.post('/edit-station/:line/:station', async (req, res) => {
+router.post('/edit-station/:operation/:line/:station', async (req, res) => {
     console.log('router edit-station');
 
-    const { new_token, params: { line, station }} = req;
+    const { new_token, params: { operation, line, station }} = req;
     try {
+        const { _id } = await trainSchema
+            .findOne({ railOprIsttCd: operation, lnCd: line, stinCd: station }) 
+            .select("_id");
         const restroomList = await restroomSchema
-            .find({ line, station });
+            .find({ station: _id });
+            // .populate({
+            //     path: 'station',
+            //     match: { lnCd: line, stinCd: station }
+            // });
+            // .find({ lnCd: line, stinCd: station });
         return res.send({
             new_token,
             restroomList
