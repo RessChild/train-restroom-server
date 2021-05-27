@@ -134,15 +134,15 @@ router.post('/edit-train', (req, res) => {
     });
 });
 // 노선별 역 정보
-router.post('/edit-line/:operation/:line', async (req, res) => {
+router.post('/edit-line', async (req, res) => {
     console.log('router edit-line');
 
-    const { new_token, params: { operation, line }} = req;
+    const { new_token, body: { railOprIsttCd, lnCd }} = req;
     // console.log(req.params);
     try {
         // console.log(new_token, line);
         const stationList = await trainSchema
-            .find({ railOprIsttCd: operation, lnCd: line })
+            .find({ railOprIsttCd: railOprIsttCd, lnCd: lnCd })
             .sort({ stinNm: 1 })
             .select("stinNm stinCd");
         // console.log(stationList);
@@ -156,13 +156,13 @@ router.post('/edit-line/:operation/:line', async (req, res) => {
     }
 });
 // 역별 화장실 정보
-router.post('/edit-station/:operation/:line/:station', async (req, res) => {
+router.post('/edit-station', async (req, res) => {
     console.log('router edit-station');
 
-    const { new_token, params: { operation, line, station }} = req;
+    const { new_token, body: { railOprIsttCd, lnCd, stinCd }} = req;
     try {
         const { _id } = await trainSchema
-            .findOne({ railOprIsttCd: operation, lnCd: line, stinCd: station }) 
+            .findOne({ railOprIsttCd: railOprIsttCd, lnCd: lnCd, stinCd: stinCd }) 
             .select("_id");
         const restroomList = await restroomSchema
             .find({ station: _id });
@@ -181,9 +181,27 @@ router.post('/edit-station/:operation/:line/:station', async (req, res) => {
     }
 });
 // 화장실 정보 수정
-router.post('/edit-data/:restroom', async (req, res) => {
+router.post('/edit-restroom', async (req, res) => {
     console.log('router edit-data');
-    return res.send('화장실 정보 수정');
+
+    const { new_token, body: { edit_restroom }} = req;
+    try {
+        // _id 값으로 찾고, ...others 로 생성
+        // _id 값이 빈 값이면, 자동으로 생성되도록 upsert 를 사용
+        // ==> 다만, 빈 _id 값으로 생성되는지는 확인해야함.
+        const { _id, ...others } = edit_restroom;
+        console.log(edit_restroom)
+        const result = await restroomSchema.updateOne({ _id }, others, { upsert: true });
+        console.log(result);
+
+        return res.send({
+            new_token,
+            success: '화장실 정보 수정'
+        });
+    } catch (e) {
+        console.log('에러 발생', e);
+        return res.status(401).send(e);
+    }
 });
 
 module.exports = router;
