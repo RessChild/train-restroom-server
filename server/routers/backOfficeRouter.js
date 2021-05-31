@@ -121,6 +121,22 @@ router.post('/report-list', async (req, res) => {
     }
 });
 
+// 주어진 리스트의 isRead 상태 변경
+router.post('/report-read', async (req, res) => {
+    console.log('router report-read');
+
+    // 토큰 갱신 여부, 리스트
+    const { new_token, body: { list }} = req;
+
+    try {
+        const { ok, nModified } = await reportSchema
+            .updateMany({ "_id": { "$in": list }}, { "isRead": true });
+        // console.log(result);
+        return res.send({ new_token, ok, nModified });
+    } catch (e) {
+        return res.status(500).end();
+    }
+});
 
 /* 화장실 데이터 접근 및 수정 페이지 */
 // 모든 노선 정보
