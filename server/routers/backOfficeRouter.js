@@ -173,6 +173,7 @@ router.post('/edit-station', async (req, res) => {
             // .find({ lnCd: line, stinCd: station });
         return res.send({
             new_token,
+            station_id: _id,
             restroomList
         })
     } catch (e) {
@@ -180,6 +181,7 @@ router.post('/edit-station', async (req, res) => {
         return res.status(401).send(e);
     }
 });
+
 // 화장실 정보 수정
 router.post('/edit-restroom', async (req, res) => {
     console.log('router edit-data');
@@ -190,14 +192,26 @@ router.post('/edit-restroom', async (req, res) => {
         // _id 값이 빈 값이면, 자동으로 생성되도록 upsert 를 사용
         // ==> 다만, 빈 _id 값으로 생성되는지는 확인해야함.
         const { _id, ...others } = edit_restroom;
-        console.log(edit_restroom)
-        const result = await restroomSchema.updateOne({ _id }, others, { upsert: true });
-        console.log(result);
+        // console.log(edit_restroom)
+        // 1차로 존재하는 값에서 수정을 시도
+        const { n, ok } = await restroomSchema.updateOne({ _id }, others);
+        // console.log(result);
+        let created
 
-        return res.send({
-            new_token,
-            success: '화장실 정보 수정'
-        });
+        if (!n) { // 해당 값을 못찾은 거라면 만들어서 제공
+            const { _id } = await restroomSchema.create(others);
+            return res.send({
+                new_token,
+                success: !!_id,
+                saved_id: _id,
+            });
+        }
+        else {
+            return res.send({
+                new_token,
+                success: ok,
+            });
+        }
     } catch (e) {
         console.log('에러 발생', e);
         return res.status(401).send(e);

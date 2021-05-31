@@ -78,8 +78,14 @@
 14. 2021/05/24
   - edit 기능 관련한 router 부분 작성
 15. 2021/05/27
-  - parmas 에서 body 로 값을 받도록 코드 개선
+  - params 에서 body 로 값을 받도록 코드 개선
   - mongoDB 의 update 기능 작성 중
+16. 2021/05/31
+  - upsert를 사용해서 구현은 되었는데, 
+    새로 생성되는 객체의 기본 id 값이 동일하다보니 upsert 가 원하는대로 작동이 안됨
+    so, 절차를 2개로 나눠야할 것 같음
+    ( 1차로, 존재하는지 탐색하고 업데이트 시도, 2차로 새로 값을 저장하도록 ) OK
+  - 기존 값 업데이트 + 새 정보 추가 완료
 
 # 해야할 부분
 - lnCd 도 함께 검색키로 받아오도록 수정 OK
@@ -103,6 +109,7 @@
   대신, countDocumnet() 라는 함수를 사용하길 권유
 - Date 객체의 getTime() 은 second 단위의 값으로 반환
   Date.now() 는 milisecond 단위이므로, getTime() 결과에 1000을 곱해 단위를 맞춰줘야 함
+- mongoose 에서 update / save 기능을 함께 쓰려면 { upsert: true } 로 설정하면 됨\
 
 # 참고자료
 - https://ryanwoo.tistory.com/6
