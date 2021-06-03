@@ -200,19 +200,13 @@ router.post('/edit-station', async (req, res) => {
 
 // 화장실 정보 수정
 router.post('/edit-restroom', async (req, res) => {
-    console.log('router edit-data');
+    console.log('router edit-restroom');
 
     const { new_token, body: { edit_restroom }} = req;
     try {
-        // _id 값으로 찾고, ...others 로 생성
-        // _id 값이 빈 값이면, 자동으로 생성되도록 upsert 를 사용
-        // ==> 다만, 빈 _id 값으로 생성되는지는 확인해야함.
         const { _id, ...others } = edit_restroom;
-        // console.log(edit_restroom)
         // 1차로 존재하는 값에서 수정을 시도
         const { n, ok } = await restroomSchema.updateOne({ _id }, others);
-        // console.log(result);
-        let created
 
         if (!n) { // 해당 값을 못찾은 거라면 만들어서 제공
             const { _id } = await restroomSchema.create(others);
@@ -233,5 +227,41 @@ router.post('/edit-restroom', async (req, res) => {
         return res.status(401).send(e);
     }
 });
+// 화장실 정보 삭제
+router.post('/remove-restroom', async (req, res) => {
+    console.log('router remove-restroom');
+
+    const { new_token, body: { remove_restroom }} = req;
+    try {
+        const { deletedCount, ok } = await restroomSchema.deleteOne({ _id: remove_restroom });
+        // console.log(result);
+
+        return res.send({
+            new_token,
+            success: deletedCount,
+        })
+    } catch(e) {
+        console.log('에러 발생', e);
+        return res.status(401).send(e);
+    }
+})
+
+/*
+{
+  n: 1,
+  opTime: {
+    ts: Timestamp { _bsontype: 'Timestamp', low_: 11, high_: 1622611183 },
+    t: 12
+  },
+  electionId: 7fffffff000000000000000c,
+  ok: 1,
+  '$clusterTime': {
+    clusterTime: Timestamp { _bsontype: 'Timestamp', low_: 11, high_: 1622611183 },
+    signature: { hash: [Binary], keyId: [Long] }
+  },
+  operationTime: Timestamp { _bsontype: 'Timestamp', low_: 11, high_: 1622611183 },
+  deletedCount: 1
+}
+*/
 
 module.exports = router;
