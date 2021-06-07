@@ -1,5 +1,6 @@
 # train-restroom-server
-- https://play.google.com/store/apps/details?id=com.yj.subway&hl=ko&gl=US
+- Android: https://play.google.com/store/apps/details?id=com.yj.subway&hl=ko&gl=US
+  IOS : https://apps.apple.com/kr/app/%EC%A7%80%ED%95%98%EC%B2%A0%ED%99%94%EC%9E%A5%EC%8B%A4/id1562567727
 - 철도 화장실 정보 어플용 서버
 - NodeJS / EC2 / S3 / MongoDB
 - open api 서비스 키는 1년마다 재발급 받아야 함 
