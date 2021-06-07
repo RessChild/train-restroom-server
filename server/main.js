@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // 환경 변수
 const PORT = process.env.SERVER_PORT;
@@ -30,6 +31,9 @@ const connectServer = async () => {
     // 라우팅
     // const textRouter = require('./routers/testRouter');
     // app.use('/test', textRouter);
+
+    // cors 사용
+    app.use(cors());
 
     // req.body 사용
     app.use(express.json());
