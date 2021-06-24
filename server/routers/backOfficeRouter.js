@@ -15,6 +15,14 @@ const { lnList } = require('../utils/FilterData');
 
 const LINE_LIMIT = 15;
 
+// 테스트 관련 임시 라우터
+// router.get('/testing', async (req, res) => {
+//     console.log('get testing');
+//     const result = await trainSchema.updateMany({ lnNm: "수인분당선" }, { lnNm: "분당선" });
+//     console.log(result);
+//     return res.send(result);
+// });
+
 // 로그인 (비밀번호 확인)
 router.post('/', async (req, res) => {
     console.log('try login');
